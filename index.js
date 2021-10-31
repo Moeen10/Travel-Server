@@ -22,6 +22,7 @@ async function run(){
         await client.connect();
         const database = client.db("CarMeachanic");
         const servicesCollection = database.collection("services");
+        const userCollection = database.collection("user");
 
         //get API
         app.get('/services',async(req,res)=>{
@@ -53,6 +54,15 @@ async function run(){
             console.log(result)
             res.json(result);
         })
+        
+        
+        app.post('/user', async(req, res) => {
+          const userOrder =req.body;
+          console.log('hit the post Api' , userOrder)
+          const result = await userCollection.insertOne(userOrder);
+          console.log("my result :", result)
+          res.json(result);      
+          })
 
         //DELETE API
 
